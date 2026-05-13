@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 {
-    public partial class Form1 : Form
+    public partial class ViewLogin : Form
     {
         private const string StudentEmail = "0021468@huce.edu.vn";
         private const string StudentId = "123456";
 
-        public Form1()
+        public ViewLogin()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 {
-    partial class Form1
+    partial class ViewLogin
     {
         /// <summary>
         /// Required designer variable.
