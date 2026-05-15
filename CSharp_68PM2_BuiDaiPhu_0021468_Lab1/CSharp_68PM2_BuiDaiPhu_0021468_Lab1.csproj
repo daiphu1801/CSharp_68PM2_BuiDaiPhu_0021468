@@ -52,6 +52,18 @@
     <Compile Include="ViewLogin.Designer.cs">
       <DependentUpon>ViewLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewStudent.Designer.cs">
+      <DependentUpon>ViewStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewClass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewClass.Designer.cs">
+      <DependentUpon>ViewClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ViewLogin.resx">
@@ -66,6 +78,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ViewStudent.resx">
+      <DependentUpon>ViewStudent.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

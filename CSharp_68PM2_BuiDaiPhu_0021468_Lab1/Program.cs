@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +16,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ViewLogin());
+            Application.Run(new ViewClass());
         }
     }
 }
