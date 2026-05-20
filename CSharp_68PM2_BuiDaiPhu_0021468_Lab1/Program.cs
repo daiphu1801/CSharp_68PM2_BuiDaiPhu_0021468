@@ -16,7 +16,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ViewClass());
+            Application.Run(new Form_main());
         }
     }
 }
