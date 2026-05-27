@@ -38,7 +38,6 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.label6 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button10 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -148,7 +147,6 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button10);
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.button3);
@@ -170,16 +168,6 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin lớp học";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter_1);
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(102, 717);
-            this.button10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(127, 55);
-            this.button10.TabIndex = 15;
-            this.button10.Text = "Thêm";
-            this.button10.UseVisualStyleBackColor = true;
             // 
             // button5
             // 
@@ -344,6 +332,5 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button10;
     }
 }
