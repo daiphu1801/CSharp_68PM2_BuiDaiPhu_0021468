@@ -283,6 +283,23 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
                 MessageBox.Show("Không tìm thấy sinh viên có mã " + mssv + " để cập nhật!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DatabaseDataContext db = new DatabaseDataContext();
+
+            tb_mssv.ReadOnly = true;
+
+            string mssv = tb_mssv.Text;
+
+            SinhVien sv = db.SinhViens.SingleOrDefault(x => x.mssv == mssv);
+            if (sv == null) return;
+
+            db.SinhViens.DeleteOnSubmit(sv);
+            db.SubmitChanges();
+            MessageBox.Show("Đã xóa thành công sinh viên: " + mssv, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LoadData();
+        }
     }
 }
 
