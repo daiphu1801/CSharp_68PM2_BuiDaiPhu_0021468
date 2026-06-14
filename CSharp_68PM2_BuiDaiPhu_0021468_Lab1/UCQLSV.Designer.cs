@@ -47,13 +47,13 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dgvQLSV = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.txt_timKiem = new System.Windows.Forms.TextBox();
+            this.btn_timKiem = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
+            this.page = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQLSV)).BeginInit();
             this.SuspendLayout();
@@ -253,24 +253,25 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.label6.TabIndex = 3;
             this.label6.Text = "Tìm kiếm theo tên/mssv";
             // 
-            // textBox6
+            // txt_timKiem
             // 
-            this.textBox6.Location = new System.Drawing.Point(782, 25);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(409, 31);
-            this.textBox6.TabIndex = 7;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            this.txt_timKiem.Location = new System.Drawing.Point(782, 25);
+            this.txt_timKiem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txt_timKiem.Name = "txt_timKiem";
+            this.txt_timKiem.Size = new System.Drawing.Size(409, 31);
+            this.txt_timKiem.TabIndex = 7;
+            this.txt_timKiem.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
-            // button1
+            // btn_timKiem
             // 
-            this.button1.Location = new System.Drawing.Point(1218, 20);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 36);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Tìm kiếm";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_timKiem.Location = new System.Drawing.Point(1218, 20);
+            this.btn_timKiem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btn_timKiem.Name = "btn_timKiem";
+            this.btn_timKiem.Size = new System.Drawing.Size(112, 36);
+            this.btn_timKiem.TabIndex = 8;
+            this.btn_timKiem.Text = "Tìm kiếm";
+            this.btn_timKiem.UseVisualStyleBackColor = true;
+            this.btn_timKiem.Click += new System.EventHandler(this.btn_timKiem_Click);
             // 
             // button6
             // 
@@ -281,6 +282,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.button6.TabIndex = 9;
             this.button6.Text = "<";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -291,6 +293,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.button7.TabIndex = 10;
             this.button7.Text = "< <";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
@@ -301,6 +304,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.button8.TabIndex = 11;
             this.button8.Text = ">";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
@@ -311,28 +315,29 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.button9.TabIndex = 12;
             this.button9.Text = "> >";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
-            // label7
+            // page
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(988, 723);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(104, 25);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Trang 1/1";
+            this.page.AutoSize = true;
+            this.page.Location = new System.Drawing.Point(988, 723);
+            this.page.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.page.Name = "page";
+            this.page.Size = new System.Drawing.Size(104, 25);
+            this.page.TabIndex = 13;
+            this.page.Text = "Trang 1/1";
             // 
             // UCQLSV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.page);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.btn_timKiem);
+            this.Controls.Add(this.txt_timKiem);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dgvQLSV);
             this.Controls.Add(this.groupBox1);
@@ -364,17 +369,17 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.DataGridView dgvQLSV;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txt_timKiem;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btn_add;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_timKiem;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label page;
     }
 }
 

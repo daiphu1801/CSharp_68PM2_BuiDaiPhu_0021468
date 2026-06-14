@@ -12,6 +12,11 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 {
     public partial class UCQLSV : UserControl
     {
+        int totalPage;
+        int currentPage = 1;
+        int pageSize = 2;
+        string searchKeyword = "";
+
         public UCQLSV()
         {
             InitializeComponent();
@@ -43,9 +48,9 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             StyleButton(button5, Form_main.NeutralBtn);
 
             // Search button
-            StyleButton(button1, Form_main.PrimaryBtn);
-            textBox6.BorderStyle = BorderStyle.FixedSingle;
-            textBox6.BackColor = Color.White;
+            StyleButton(btn_timKiem, Form_main.PrimaryBtn);
+            txt_timKiem.BorderStyle = BorderStyle.FixedSingle;
+            txt_timKiem.BackColor = Color.White;
             label6.ForeColor = Form_main.NavyColor;
 
             // Pagination buttons
@@ -55,7 +60,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             StyleButton(button7, pageBtnColor, pageBtnFg);
             StyleButton(button8, pageBtnColor, pageBtnFg);
             StyleButton(button9, pageBtnColor, pageBtnFg);
-            label7.ForeColor = Color.FromArgb(80, 100, 120);
+            page.ForeColor = Color.FromArgb(80, 100, 120);
 
             // DataGridView
             ThemeDataGridView(dgvQLSV);
@@ -95,7 +100,26 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             {
                 using (DatabaseDataContext db = new DatabaseDataContext())
                 {
-                    dgvQLSV.DataSource = db.SinhViens.ToList();
+                    if (!searchKeyword.Equals(""))
+                    {
+                        var results = db.SinhViens.Where(sv =>
+                            sv.mssv.ToLower().Contains(searchKeyword) ||
+                            sv.hoten.ToLower().Contains(searchKeyword) ||
+                            sv.lop.ToLower().Contains(searchKeyword)
+                        );
+                        totalPage = (int)Math.Ceiling((double)results.Count() / pageSize);
+                        if (totalPage == 0) totalPage = 1;
+                        page.Text = "Trang " + currentPage + "/" + totalPage;
+                        dgvQLSV.DataSource = results.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                    }
+                    else
+                    {
+                        totalPage = (int)Math.Ceiling((double)db.SinhViens.Count() / pageSize);
+                        if (totalPage == 0) totalPage = 1;
+
+                        dgvQLSV.DataSource = db.SinhViens.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                        page.Text = "Trang " + currentPage + "/" + totalPage;
+                    }
 
                     // Format columns to make them beautiful and professional
                     if (dgvQLSV.Columns["id"] != null)
@@ -299,6 +323,45 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             db.SubmitChanges();
             MessageBox.Show("Đã xóa thành công sinh viên: " + mssv, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadData();
+        }
+        private void btn_timKiem_Click(object sender, EventArgs e)
+        {
+            DatabaseDataContext db = new DatabaseDataContext();
+            searchKeyword = txt_timKiem.Text.Trim().ToLower();
+            currentPage = 1;
+            LoadData();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            currentPage += 1;
+            if (currentPage > totalPage) currentPage = totalPage;
+            LoadData();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            currentPage -= 1;
+            if (currentPage < 1) currentPage = 1;
+            LoadData();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (currentPage != totalPage)
+            {
+                currentPage = totalPage;
+                LoadData();
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (currentPage != 1)
+            {
+                currentPage = 1;
+                LoadData();
+            }
         }
     }
 }
