@@ -46,6 +46,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.txt_lop = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btn_dssv = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -148,6 +149,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.groupBox1.Controls.Add(this.txt_lop);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btn_dssv);
             this.groupBox1.Location = new System.Drawing.Point(44, 40);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(228, 518);
@@ -219,6 +221,17 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.label3.TabIndex = 3;
             this.label3.Text = "Tên lớp";
             // 
+            // 
+            // btn_dssv
+            // 
+            this.btn_dssv.Location = new System.Drawing.Point(21, 462);
+            this.btn_dssv.Name = "btn_dssv";
+            this.btn_dssv.Size = new System.Drawing.Size(168, 28);
+            this.btn_dssv.TabIndex = 15;
+            this.btn_dssv.Text = "Xem danh sách sinh viên";
+            this.btn_dssv.UseVisualStyleBackColor = true;
+            this.btn_dssv.Click += new System.EventHandler(this.btn_dssv_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -273,5 +286,6 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         private System.Windows.Forms.TextBox txt_lop;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btn_dssv;
     }
 }

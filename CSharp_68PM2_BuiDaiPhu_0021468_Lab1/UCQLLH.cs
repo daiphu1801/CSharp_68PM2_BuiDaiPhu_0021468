@@ -46,6 +46,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             StyleButton(sua_btn, Form_main.PrimaryBtn);
             StyleButton(delete_btn, Form_main.DangerBtn);
             StyleButton(refresh_btn, Form_main.NeutralBtn);
+            StyleButton(btn_dssv, Form_main.NavyColor);
 
             // Search
             StyleButton(timKiem_btn, Form_main.PrimaryBtn);
@@ -229,6 +230,17 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             searchKeyword = txt_find.Text.Trim().ToLower();
             currentPage = 1;
             loadData();
+        }
+
+        private void btn_dssv_Click(object sender, EventArgs e)
+        {
+            string maLop = txt_lop.Text.Trim();
+            if (string.IsNullOrEmpty(maLop))
+            {
+                MessageBox.Show("Vui lòng chọn hoặc nhập mã lớp để xem danh sách sinh viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            new DSSV(maLop).ShowDialog();
         }
     }
 }

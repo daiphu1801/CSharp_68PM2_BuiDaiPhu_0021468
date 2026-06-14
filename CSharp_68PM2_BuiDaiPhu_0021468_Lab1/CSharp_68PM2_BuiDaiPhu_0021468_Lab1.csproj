@@ -76,8 +76,17 @@
     <Compile Include="UCQLLH.Designer.cs">
       <DependentUpon>UCQLLH.cs</DependentUpon>
     </Compile>
+    <Compile Include="DSSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSSV.Designer.cs">
+      <DependentUpon>DSSV.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DSSV.resx">
+      <DependentUpon>DSSV.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewLogin.resx">
       <DependentUpon>ViewLogin.cs</DependentUpon>
     </EmbeddedResource>
