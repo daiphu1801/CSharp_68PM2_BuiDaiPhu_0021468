@@ -219,6 +219,8 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         {
             if (e.RowIndex < 0) return;
 
+            tb_mssv.ReadOnly = true;
+
             DataGridViewRow row = dgvQLSV.Rows[e.RowIndex];
             tb_mssv.Text = row.Cells[1].Value?.ToString() ?? "";
             tb_hoten.Text = row.Cells[2].Value?.ToString() ?? "";
@@ -243,6 +245,43 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 
             cb_gioitinh.Text = row.Cells[4].Value?.ToString() ?? "";
             cb_lop.Text = row.Cells[5].Value?.ToString() ?? "";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DatabaseDataContext db = new DatabaseDataContext();
+
+            tb_mssv.ReadOnly = true;
+
+            string mssv = tb_mssv.Text;
+            string hoten = tb_hoten.Text;
+            string lop = cb_lop.Text;
+            DateTime ngaysinh = date.Value;
+            string gioitinh = cb_gioitinh.Text;
+
+            if (string.IsNullOrEmpty(mssv))
+            {
+                MessageBox.Show("Vui lòng chọn hoặc nhập Mã số sinh viên cần cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SinhVien sv = db.SinhViens.SingleOrDefault(x => x.mssv == mssv);
+
+            if (sv != null)
+            {
+                sv.hoten = hoten;
+                sv.ngaysinh = ngaysinh;
+                sv.gioitinh = gioitinh;
+                sv.lop = lop;
+                db.SubmitChanges();
+
+                MessageBox.Show("Cập nhật thông tin sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy sinh viên có mã " + mssv + " để cập nhật!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
