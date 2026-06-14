@@ -41,7 +41,6 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             StyleButton(button3, Form_main.PrimaryBtn);
             StyleButton(button4, Form_main.DangerBtn);
             StyleButton(button5, Form_main.NeutralBtn);
-            StyleButton(button10, Form_main.PrimaryBtn);
 
             // Search
             StyleButton(button1, Form_main.PrimaryBtn);

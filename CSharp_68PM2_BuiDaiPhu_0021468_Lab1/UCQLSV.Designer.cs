@@ -45,7 +45,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dgvQLSV = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -55,7 +55,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.button9 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvQLSV)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -227,17 +227,19 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // dataGridView2
+            // dgvQLSV
             // 
-            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(540, 84);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(1047, 552);
-            this.dataGridView2.TabIndex = 2;
+            this.dgvQLSV.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dgvQLSV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvQLSV.Location = new System.Drawing.Point(540, 84);
+            this.dgvQLSV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dgvQLSV.Name = "dgvQLSV";
+            this.dgvQLSV.RowHeadersWidth = 51;
+            this.dgvQLSV.RowTemplate.Height = 24;
+            this.dgvQLSV.Size = new System.Drawing.Size(1047, 552);
+            this.dgvQLSV.TabIndex = 2;
+            this.dgvQLSV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvQLSV_CellClick);
+            this.dgvQLSV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvQLSV_CellContentClick);
             // 
             // label6
             // 
@@ -330,7 +332,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.dgvQLSV);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "UCQLSV";
@@ -338,7 +340,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             this.Load += new System.EventHandler(this.UCQLSV_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvQLSV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -358,7 +360,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView dgvQLSV;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Button button5;
@@ -373,3 +375,4 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         private System.Windows.Forms.Label label7;
     }
 }
+

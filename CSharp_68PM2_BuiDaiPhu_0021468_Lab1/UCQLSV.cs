@@ -41,7 +41,6 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             StyleButton(button3, Form_main.PrimaryBtn);
             StyleButton(button4, Form_main.DangerBtn);
             StyleButton(button5, Form_main.NeutralBtn);
-            StyleButton(button11, Form_main.PrimaryBtn);
 
             // Search button
             StyleButton(button1, Form_main.PrimaryBtn);
@@ -59,7 +58,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             label7.ForeColor = Color.FromArgb(80, 100, 120);
 
             // DataGridView
-            ThemeDataGridView(dataGridView2);
+            ThemeDataGridView(dgvQLSV);
         }
 
         private void StyleButton(Button btn, Color bg, Color? fg = null)
@@ -96,37 +95,37 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             {
                 using (DatabaseDataContext db = new DatabaseDataContext())
                 {
-                    dataGridView2.DataSource = db.SinhViens.ToList();
+                    dgvQLSV.DataSource = db.SinhViens.ToList();
 
                     // Format columns to make them beautiful and professional
-                    if (dataGridView2.Columns["id"] != null)
-                        dataGridView2.Columns["id"].Visible = false;
+                    if (dgvQLSV.Columns["id"] != null)
+                        dgvQLSV.Columns["id"].Visible = false;
 
-                    if (dataGridView2.Columns["mssv"] != null)
+                    if (dgvQLSV.Columns["mssv"] != null)
                     {
-                        dataGridView2.Columns["mssv"].HeaderText = "Mã Số Sinh Viên";
-                        dataGridView2.Columns["mssv"].FillWeight = 90;
+                        dgvQLSV.Columns["mssv"].HeaderText = "Mã Số Sinh Viên";
+                        dgvQLSV.Columns["mssv"].FillWeight = 90;
                     }
-                    if (dataGridView2.Columns["hoten"] != null)
+                    if (dgvQLSV.Columns["hoten"] != null)
                     {
-                        dataGridView2.Columns["hoten"].HeaderText = "Họ và Tên";
-                        dataGridView2.Columns["hoten"].FillWeight = 160;
+                        dgvQLSV.Columns["hoten"].HeaderText = "Họ và Tên";
+                        dgvQLSV.Columns["hoten"].FillWeight = 160;
                     }
-                    if (dataGridView2.Columns["ngaysinh"] != null)
+                    if (dgvQLSV.Columns["ngaysinh"] != null)
                     {
-                        dataGridView2.Columns["ngaysinh"].HeaderText = "Ngày Sinh";
-                        dataGridView2.Columns["ngaysinh"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                        dataGridView2.Columns["ngaysinh"].FillWeight = 90;
+                        dgvQLSV.Columns["ngaysinh"].HeaderText = "Ngày Sinh";
+                        dgvQLSV.Columns["ngaysinh"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                        dgvQLSV.Columns["ngaysinh"].FillWeight = 90;
                     }
-                    if (dataGridView2.Columns["gioitinh"] != null)
+                    if (dgvQLSV.Columns["gioitinh"] != null)
                     {
-                        dataGridView2.Columns["gioitinh"].HeaderText = "Giới Tính";
-                        dataGridView2.Columns["gioitinh"].FillWeight = 70;
+                        dgvQLSV.Columns["gioitinh"].HeaderText = "Giới Tính";
+                        dgvQLSV.Columns["gioitinh"].FillWeight = 70;
                     }
-                    if (dataGridView2.Columns["lop"] != null)
+                    if (dgvQLSV.Columns["lop"] != null)
                     {
-                        dataGridView2.Columns["lop"].HeaderText = "Lớp";
-                        dataGridView2.Columns["lop"].FillWeight = 90;
+                        dgvQLSV.Columns["lop"].HeaderText = "Lớp";
+                        dgvQLSV.Columns["lop"].FillWeight = 90;
                     }
                 }
             }
@@ -211,5 +210,40 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         {
 
         }
+
+        private void dgvQLSV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void dgvQLSV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = dgvQLSV.Rows[e.RowIndex];
+            tb_mssv.Text = row.Cells[1].Value?.ToString() ?? "";
+            tb_hoten.Text = row.Cells[2].Value?.ToString() ?? "";
+            if (row.Cells[3].Value != null)
+            {
+                string dateString = row.Cells[3].Value.ToString();
+                DateTime ngaySinhResult;
+
+                if (DateTime.TryParse(dateString, out ngaySinhResult))
+                {
+                    date.Value = ngaySinhResult;
+                }
+                else
+                {
+                    date.Value = DateTime.Now;
+                }
+            }
+            else
+            {
+                date.Value = DateTime.Now;
+            }
+
+            cb_gioitinh.Text = row.Cells[4].Value?.ToString() ?? "";
+            cb_lop.Text = row.Cells[5].Value?.ToString() ?? "";
+        }
     }
 }
+
