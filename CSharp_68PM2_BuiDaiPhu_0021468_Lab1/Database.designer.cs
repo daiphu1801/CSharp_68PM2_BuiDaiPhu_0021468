@@ -30,6 +30,9 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertLopHoc(LopHoc instance);
+    partial void UpdateLopHoc(LopHoc instance);
+    partial void DeleteLopHoc(LopHoc instance);
     partial void InsertSinhVien(SinhVien instance);
     partial void UpdateSinhVien(SinhVien instance);
     partial void DeleteSinhVien(SinhVien instance);
@@ -65,12 +68,134 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<LopHoc> LopHocs
+		{
+			get
+			{
+				return this.GetTable<LopHoc>();
+			}
+		}
+		
 		public System.Data.Linq.Table<SinhVien> SinhViens
 		{
 			get
 			{
 				return this.GetTable<SinhVien>();
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LopHoc")]
+	public partial class LopHoc : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _lop;
+		
+		private string _ten_lop;
+		
+		private EntitySet<SinhVien> _SinhViens;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnlopChanging(string value);
+    partial void OnlopChanged();
+    partial void Onten_lopChanging(string value);
+    partial void Onten_lopChanged();
+    #endregion
+		
+		public LopHoc()
+		{
+			this._SinhViens = new EntitySet<SinhVien>(new Action<SinhVien>(this.attach_SinhViens), new Action<SinhVien>(this.detach_SinhViens));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lop", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string lop
+		{
+			get
+			{
+				return this._lop;
+			}
+			set
+			{
+				if ((this._lop != value))
+				{
+					this.OnlopChanging(value);
+					this.SendPropertyChanging();
+					this._lop = value;
+					this.SendPropertyChanged("lop");
+					this.OnlopChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ten_lop", DbType="NVarChar(100)")]
+		public string ten_lop
+		{
+			get
+			{
+				return this._ten_lop;
+			}
+			set
+			{
+				if ((this._ten_lop != value))
+				{
+					this.Onten_lopChanging(value);
+					this.SendPropertyChanging();
+					this._ten_lop = value;
+					this.SendPropertyChanged("ten_lop");
+					this.Onten_lopChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LopHoc_SinhVien", Storage="_SinhViens", ThisKey="lop", OtherKey="lop")]
+		public EntitySet<SinhVien> SinhViens
+		{
+			get
+			{
+				return this._SinhViens;
+			}
+			set
+			{
+				this._SinhViens.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SinhViens(SinhVien entity)
+		{
+			this.SendPropertyChanging();
+			entity.LopHoc = this;
+		}
+		
+		private void detach_SinhViens(SinhVien entity)
+		{
+			this.SendPropertyChanging();
+			entity.LopHoc = null;
 		}
 	}
 	
@@ -92,6 +217,8 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 		
 		private string _lop;
 		
+		private EntityRef<LopHoc> _LopHoc;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -112,6 +239,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 		
 		public SinhVien()
 		{
+			this._LopHoc = default(EntityRef<LopHoc>);
 			OnCreated();
 		}
 		
@@ -226,11 +354,49 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 			{
 				if ((this._lop != value))
 				{
+					if (this._LopHoc.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnlopChanging(value);
 					this.SendPropertyChanging();
 					this._lop = value;
 					this.SendPropertyChanged("lop");
 					this.OnlopChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LopHoc_SinhVien", Storage="_LopHoc", ThisKey="lop", OtherKey="lop", IsForeignKey=true)]
+		public LopHoc LopHoc
+		{
+			get
+			{
+				return this._LopHoc.Entity;
+			}
+			set
+			{
+				LopHoc previousValue = this._LopHoc.Entity;
+				if (((previousValue != value) 
+							|| (this._LopHoc.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._LopHoc.Entity = null;
+						previousValue.SinhViens.Remove(this);
+					}
+					this._LopHoc.Entity = value;
+					if ((value != null))
+					{
+						value.SinhViens.Add(this);
+						this._lop = value.lop;
+					}
+					else
+					{
+						this._lop = default(string);
+					}
+					this.SendPropertyChanged("LopHoc");
 				}
 			}
 		}

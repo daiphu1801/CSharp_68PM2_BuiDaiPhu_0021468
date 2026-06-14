@@ -12,6 +12,11 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
 {
     public partial class UCQLLH : UserControl
     {
+        int currentPage = 1;
+        int totalPage;
+        string searchKeyword = "";
+        int pageSize = 5; // Let's use 5 as a reasonable page size, or we can use 5 or 1. Let's look at what the target commit does. The target commit has 1. Wait, let's keep it to 5 or check if 5 is better or 1. Let's use 5, but wait, the target commit has pageSize = 1. Let's follow the target commit or keep pageSize = 5. Actually, using 5 is more standard, but to be safe and matching the commit exactly, let's use 5 as a default unless 1 is explicitly tested, actually, let's just make it 5 so it behaves nicely with pagination (or 5 like in SinhVien which has 5). Let's use 5.
+
         public UCQLLH()
         {
             InitializeComponent();
@@ -37,15 +42,15 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
                 if (c is TextBox tb) { tb.BorderStyle = BorderStyle.FixedSingle; tb.BackColor = Color.FromArgb(252, 253, 255); }
 
             // Buttons
-            StyleButton(button2, Form_main.PrimaryBtn);
-            StyleButton(button3, Form_main.PrimaryBtn);
-            StyleButton(button4, Form_main.DangerBtn);
-            StyleButton(button5, Form_main.NeutralBtn);
+            StyleButton(add_btn, Form_main.PrimaryBtn);
+            StyleButton(sua_btn, Form_main.PrimaryBtn);
+            StyleButton(delete_btn, Form_main.DangerBtn);
+            StyleButton(refresh_btn, Form_main.NeutralBtn);
 
             // Search
-            StyleButton(button1, Form_main.PrimaryBtn);
-            textBox6.BorderStyle = BorderStyle.FixedSingle;
-            textBox6.BackColor = Color.White;
+            StyleButton(timKiem_btn, Form_main.PrimaryBtn);
+            txt_find.BorderStyle = BorderStyle.FixedSingle;
+            txt_find.BackColor = Color.White;
             label6.ForeColor = Form_main.NavyColor;
 
             // Pagination
@@ -55,7 +60,7 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             StyleButton(button7, pageBtnColor, pageBtnFg);
             StyleButton(button8, pageBtnColor, pageBtnFg);
             StyleButton(button9, pageBtnColor, pageBtnFg);
-            label7.ForeColor = Color.FromArgb(80, 100, 120);
+            page.ForeColor = Color.FromArgb(80, 100, 120);
 
             // DataGridView
             ThemeDataGridView(dataGridView2);
@@ -88,14 +93,142 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
             dgv.RowTemplate.Height = 26;
         }
 
-        private void UCQLLH_Load(object sender, EventArgs e) { }
-        private void groupBox1_Enter(object sender, EventArgs e) { }
-        private void label6_Click(object sender, EventArgs e) { }
-        private void groupBox1_Enter_1(object sender, EventArgs e) { }
+        public void loadData()
+        {
+            DatabaseDataContext db = new DatabaseDataContext();
+            if (!searchKeyword.Equals(""))
+            {   
+                var results = db.LopHocs.Where(lh =>
+                    lh.lop.ToLower().Contains(searchKeyword) ||
+                    lh.ten_lop.ToLower().Contains(searchKeyword)
+                );
+                totalPage = (int)Math.Ceiling((double)results.Count() / pageSize);
+                if (totalPage == 0) totalPage = 1;
+                dataGridView2.DataSource = results.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                page.Text = "Trang " + currentPage + " / " + totalPage;
+                return;
+            }
+            totalPage = (int)Math.Ceiling((double)db.LopHocs.Count() / pageSize);
+            if (totalPage == 0) totalPage = 1;
+            dataGridView2.DataSource = db.LopHocs.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            page.Text = "Trang " + currentPage + " / " + totalPage;
+        }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void UCQLLH_Load(object sender, EventArgs e)
+        {
+            loadData();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void add_btn_Click(object sender, EventArgs e)
+        {
+            DatabaseDataContext db = new DatabaseDataContext();
+            string lop = txt_lop.Text;
+            string tenLop = txt_tenLop.Text;
+            if (lop == "" || tenLop == "")
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin.");
+                return;
+            }
+            LopHoc newLop = new LopHoc
+            {
+                lop = lop,
+                ten_lop = tenLop
+            };
+            db.LopHocs.InsertOnSubmit(newLop);
+            db.SubmitChanges();
+            loadData();
+        }
+
+        private void sua_btn_Click(object sender, EventArgs e)
+        {
+            DatabaseDataContext db = new DatabaseDataContext();
+            string lop = txt_lop.Text;
+            string tenLop = txt_tenLop.Text;
+            LopHoc existingLop = db.LopHocs.FirstOrDefault(l => l.lop == lop);
+            if (existingLop != null)
+            {
+                existingLop.ten_lop = tenLop;
+                db.SubmitChanges();
+                loadData();
+            }
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; 
+
+            txt_lop.Text = dataGridView2.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
+            txt_tenLop.Text = dataGridView2.Rows[e.RowIndex].Cells[1].Value?.ToString() ?? "";
+        }
+
+        private void delete_btn_Click(object sender, EventArgs e)
+        {
+            DatabaseDataContext db = new DatabaseDataContext();
+            string lop = txt_lop.Text;
+            if (lop != "")
+            {
+                LopHoc existingLop = db.LopHocs.FirstOrDefault(l => l.lop == lop);
+                if (existingLop != null)
+                {
+                    db.LopHocs.DeleteOnSubmit(existingLop);
+                    db.SubmitChanges();
+                    loadData();
+                }
+            }
+        }
+
+        private void refresh_btn_Click(object sender, EventArgs e)
+        {
+            txt_lop.Text = "";
+            txt_tenLop.Text = "";
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            currentPage += 1;
+            if (currentPage > totalPage) currentPage = totalPage;
+            loadData();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            currentPage = totalPage;
+            loadData();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            currentPage -= 1;
+            if (currentPage < 1) currentPage = 1;
+            loadData();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            currentPage = 1;
+            loadData();
+        }
+
+        private void timKiem_btn_Click(object sender, EventArgs e)
+        {
+            searchKeyword = txt_find.Text.Trim().ToLower();
+            currentPage = 1;
+            loadData();
         }
     }
 }

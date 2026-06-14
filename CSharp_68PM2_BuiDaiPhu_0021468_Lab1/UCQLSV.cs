@@ -163,12 +163,38 @@ namespace CSharp_68PM2_BuiDaiPhu_0021468_Lab1
         {
             LoadData();
 
-            // Populate cb_lop
-            cb_lop.Items.Clear();
-            cb_lop.Items.AddRange(new object[] { "68PM1", "68PM2", "68PM3" });
-            if (cb_lop.Items.Count > 0) cb_lop.SelectedIndex = 0;
+            // Populate cb_lop dynamically from database
+            try
+            {
+                using (DatabaseDataContext db = new DatabaseDataContext())
+                {
+                    cb_lop.Items.Clear();
+                    var lops = db.LopHocs.Select(lh => lh.lop).ToList();
+                    foreach (var l in lops)
+                    {
+                        cb_lop.Items.Add(l);
+                    }
+                    if (cb_lop.Items.Count > 0)
+                        cb_lop.SelectedIndex = 0;
+                    else
+                    {
+                        cb_lop.Items.AddRange(new object[] { "CNTT01", "CNTT02", "ANM01" });
+                        cb_lop.SelectedIndex = 0;
+                    }
+                }
+            }
+            catch
+            {
+                cb_lop.Items.Clear();
+                cb_lop.Items.AddRange(new object[] { "CNTT01", "CNTT02", "ANM01" });
+                cb_lop.SelectedIndex = 0;
+            }
 
             // Populate cb_gioitinh standard default
+            if (cb_gioitinh.Items.Count == 0)
+            {
+                cb_gioitinh.Items.AddRange(new object[] { "Nam", "Nữ" });
+            }
             if (cb_gioitinh.Items.Count > 0) cb_gioitinh.SelectedIndex = 0;
         }
 
